@@ -18,9 +18,9 @@ configuration = config.get_plugin_entry_point(
 )
 
 
-class NewNormalizer(Normalizer):
+class GreenlightNormalizer(Normalizer):
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
-        logger.info('NewNormalizer.normalize', parameter=configuration.parameter)
+        logger.info('GreenlightNormalizer.normalize', parameter=configuration.parameter)
         if archive.results and archive.results.material:
             archive.results.material.elements = ['C', 'O']

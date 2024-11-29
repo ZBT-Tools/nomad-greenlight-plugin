@@ -13,6 +13,6 @@ class GreenlightParserEntryPoint(ParserEntryPoint):
 
 parser_entry_point = GreenlightParserEntryPoint(
     name='GreenlightParser',
-    description='New parser entry point configuration.',
-    mainfile_name_re='.*\.newmainfilename',
+    description='Greenlight parser entry point configuration.',
+    mainfile_content_re='\s*\n\s*Emerald Version',
 )

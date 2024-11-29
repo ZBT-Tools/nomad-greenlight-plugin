@@ -20,6 +20,12 @@ Make sure to have `pip` upgraded:
 pip install --upgrade pip
 ```
 
+For greenlight parser install additional custom package for reading 
+Greenlight files (and other files generated in ZBT labs):
+```sh
+pip install git+https://github.com/ZBT-Tools/ElectrochemDataProcessing.git
+```
+
 We recommend installing `uv` for fast pip installation of the packages:
 ```sh
 pip install uv
@@ -39,6 +45,9 @@ The plugin is still under development. If you would like to contribute, install 
 uv pip install -e '.[dev]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
 ```
 
+**Note!**
+Sometimes (not sure under what conditions) `uv` does not install latest 
+commits of local package, therefore pure `pip` seems to be the safer option. 
 
 ### Run the tests
 

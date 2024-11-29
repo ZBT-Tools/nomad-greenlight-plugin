@@ -13,5 +13,5 @@ class GreenlightSchemaPackageEntryPoint(SchemaPackageEntryPoint):
 
 schema_package_entry_point = GreenlightSchemaPackageEntryPoint(
     name='GreenlightSchemaPackage',
-    description='New schema package entry point configuration.',
+    description='Greenlight schema package entry point configuration.',
 )
