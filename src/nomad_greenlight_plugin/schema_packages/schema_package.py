@@ -10,11 +10,11 @@ if TYPE_CHECKING:
         BoundLogger,
     )
 
+import numpy as np
 from nomad.config import config
 from nomad.datamodel.data import Schema
 from nomad.datamodel.metainfo.annotations import ELNAnnotation, ELNComponentEnum
 from nomad.metainfo import Quantity, SchemaPackage
-import numpy as np
 
 configuration = config.get_plugin_entry_point(
     'nomad_greenlight_plugin.schema_packages:schema_package_entry_point'

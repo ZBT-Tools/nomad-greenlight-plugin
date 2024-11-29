@@ -10,14 +10,18 @@ if TYPE_CHECKING:
         BoundLogger,
     )
 
+# Import additional libraries
+import os
+
+from echem_data import electrochem_data as ed
 from nomad.config import config
 from nomad.datamodel.metainfo.workflow import Workflow
 from nomad.parsing.parser import MatchingParser
-# Import additional libraries
-import os
-from echem_data import electrochem_data as ed
+
 from nomad_greenlight_plugin.schema_packages.schema_package import (
-    GreenlightSchemaPackage)
+    GreenlightSchemaPackage,
+)
+
 configuration = config.get_plugin_entry_point(
     'nomad_greenlight_plugin.parsers:parser_entry_point'
 )
