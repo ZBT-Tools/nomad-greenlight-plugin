@@ -92,7 +92,7 @@ For interactive debugging of the tests, use `pytest` with the `--pdb` flag. We r
         "args": [
             "-sv",
             "--pdb",
-            "<path-to-plugin-tests>",
+            "<path-to-plugin-tests>"
         ]
     }
   ]
