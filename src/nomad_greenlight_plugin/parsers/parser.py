@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     )
 
 # Import additional libraries
-import os
 
 from echem_data import electrochem_data as ed
 from nomad.config import config
@@ -40,13 +39,13 @@ class GreenlightParser(MatchingParser):
         archive.workflow2 = Workflow(name='test')
         data_file_object = ed.EChemDataFile(mainfile, 'Greenlight')
 
-        archive.metadata.entry_name = os.path.basename(mainfile)
+        # archive.metadata.entry_name = os.path.basename(mainfile)
         # archive.metadata.external_id = data[0][1:]
         archive.data = GreenlightSchemaPackage()
         print(data_file_object.data.columns)
-        archive.data.test_name = data_file_object.header['Test Name']
+        archive.data.name = data_file_object.header['Test Name']
         archive.data.cell_voltage = data_file_object.data['cell_voltage_total']
         # archive.data.cell_voltage.unit = data_file_object.units['cell_voltage_total']
         archive.data.current_density = data_file_object.data['current_density']
         # archive.data.current_density.unit = data_file_object.units['current_density']
-        archive.data.current = data_file_object.data['current']
+        #archive.data.current = data_file_object.data['current']
