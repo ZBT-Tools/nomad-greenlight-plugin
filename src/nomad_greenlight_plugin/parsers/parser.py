@@ -48,4 +48,4 @@ class GreenlightParser(MatchingParser):
         # archive.data.cell_voltage.unit = data_file_object.units['cell_voltage_total']
         archive.data.current_density = data_file_object.data['current_density']
         # archive.data.current_density.unit = data_file_object.units['current_density']
-        #archive.data.current = data_file_object.data['current']
+        # archive.data.current = data_file_object.data['current']
