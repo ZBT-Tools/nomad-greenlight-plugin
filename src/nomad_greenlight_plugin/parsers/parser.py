@@ -34,9 +34,11 @@ class GreenlightParser(MatchingParser):
         logger: 'BoundLogger',
         child_archives: dict[str, 'EntryArchive'] = None,
     ) -> None:
-        logger.info('GreenlightParser.parse', parameter=configuration.parameter)
+        if logger is not None:
+            logger.info('GreenlightParser.parse',
+                        parameter=configuration.parameter)
 
-        archive.workflow2 = Workflow(name='test')
+        # archive.workflow2 = Workflow(name='test')
         data_file_object = ed.EChemDataFile(mainfile, 'Greenlight')
 
         # archive.metadata.entry_name = os.path.basename(mainfile)
