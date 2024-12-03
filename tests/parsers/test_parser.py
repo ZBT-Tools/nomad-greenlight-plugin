@@ -14,7 +14,8 @@ def test_parse_file():
     #                                          'test_greenlight.csv'))
     # test_file = os.path.join('tests', 'data', 'test_greenlight.csv')
     test_file = os.path.join(
-        'tests', 'data', 'maxcoat-80ti-ast_gts1_ast-mc - 230715 074738 - part_0.csv'
+        'tests', 'data',
+        'maxcoat-80ti-ast_gts1_ast-mc - 230715 074738 - part_0.csv'
     )
 
     parser = GreenlightParser()
