@@ -48,7 +48,7 @@ class GreenlightParser(MatchingParser):
         print(archive.data.__dict__)
 
         for name in data.columns:
-            if name in archive.data.quantity_names:
+            if name in archive.data:
                 try:
                     #print(archive.data, name, data[name].values[0])
                     setattr(archive.data, name, data[name])
@@ -57,10 +57,12 @@ class GreenlightParser(MatchingParser):
                     print(name)
                     print(data[name])
                     raise E
-        print(archive.data.__dict__)
+        # print(archive.data.__dict__)
         archive.data.name = data_file_object.header['Test Name']
-        # archive.data.cell_voltage = data_file_object.data['cell_voltage_total']
+        # item = data_file_object.data['cell_voltage_total']
+        # archive.data.cell_voltage = item
         # archive.data.cell_voltage.unit = data_file_object.units['cell_voltage_total']
+        # pass
         # archive.data.current_density = data_file_object.data['current_density']
         # archive.data.current_density.unit = data_file_object.units['current_density']
         # archive.data.current = data_file_object.data['current']
