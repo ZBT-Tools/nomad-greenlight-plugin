@@ -840,7 +840,7 @@ class GreenlightSchemaPackage(PlotSection, Schema):
         setattr(cls, 'quantity_names', list(quantities.keys()))
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
-        super(GreenlightSchemaPackage, self).normalize(archive, logger)
+        super().normalize(archive, logger)
         if logger is not None:
             logger.info('GreenlightSchema.normalize', parameter=configuration.parameter)
         archive.metadata.entry_name = self.name
@@ -857,18 +857,16 @@ class GreenlightSchemaPackage(PlotSection, Schema):
         fig = make_subplots(specs=[[{'secondary_y': True}]])
         # Add lines
         fig.add_trace(
-           go.Scatter(
-               x=plot_df['time'],
-               y=plot_df['voltage'],
-               name='Voltage / V',
-           ),
-           secondary_y=False,
+            go.Scatter(
+                x=plot_df['time'],
+                y=plot_df['voltage'],
+                name='Voltage / V',
+            ),
+            secondary_y=False,
         )
         fig.add_trace(
-           go.Scatter(
-               x=plot_df['time'], y=plot_df['current'], name='Current / A'
-           ),
-           secondary_y=True,
+            go.Scatter(x=plot_df['time'], y=plot_df['current'], name='Current / A'),
+            secondary_y=True,
         )
         # Set x-axis title
         fig.update_xaxes(title_text='Time / s')
