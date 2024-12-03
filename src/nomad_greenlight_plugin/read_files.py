@@ -29,7 +29,8 @@ def read_single_file(file_path, first_file_mark=None):
     }
     if first_file_mark is not None:
         data.loc[0, 'file_mark'] = first_file_mark
-    data['file_mark'] = data['file_mark'].ffill()
+    file_mark = data['file_mark'].replace('', np.nan).ffill()
+    data['file_mark'] = file_mark
     date_time = pd.to_datetime(data['time_stamp'])
     nanoseconds = date_time.values.astype(np.int64)
     seconds = nanoseconds * 1e-9

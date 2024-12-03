@@ -840,7 +840,7 @@ class GreenlightSchemaPackage(PlotSection, Schema):
         setattr(cls, 'quantity_names', list(quantities.keys()))
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
-        super().normalize(archive, logger)
+        super(GreenlightSchemaPackage, self).normalize(archive, logger)
         if logger is not None:
             logger.info('GreenlightSchema.normalize', parameter=configuration.parameter)
         archive.metadata.entry_name = self.name
@@ -849,51 +849,38 @@ class GreenlightSchemaPackage(PlotSection, Schema):
         # Add figure
         plot_df = pd.DataFrame(
             dict(
-                date_time=self.date_time,
-                current_density=self.current,
-                cell_voltage=self.cell_voltage_total,
+                time=self.time,
+                current=self.current,
+                voltage=self.cell_voltage_total,
             )
         )
         fig = make_subplots(specs=[[{'secondary_y': True}]])
         # Add lines
         fig.add_trace(
-            go.Scatter(
-                x=plot_df['date_time'],
-                y=plot_df['cell_voltage'],
-                name='Cell Voltage / V',
-            ),
-            secondary_y=False,
+           go.Scatter(
+               x=plot_df['time'],
+               y=plot_df['voltage'],
+               name='Voltage / V',
+           ),
+           secondary_y=False,
         )
         fig.add_trace(
-            go.Scatter(
-                x=plot_df['date_time'], y=plot_df['current'], name='Cell Voltage / V'
-            ),
-            secondary_y=True,
+           go.Scatter(
+               x=plot_df['time'], y=plot_df['current'], name='Current / A'
+           ),
+           secondary_y=True,
         )
         # Set x-axis title
         fig.update_xaxes(title_text='Time / s')
         # Set y-axes titles
         fig.update_yaxes(title_text='Voltage / V', secondary_y=False)
         fig.update_yaxes(title_text='Current / A', secondary_y=True)
-        self.figures.append(PlotlyFigure(fig.to_plotly_json()))
+        plotly_figure = PlotlyFigure(figure=fig.to_plotly_json())
+        self.figures.append(plotly_figure)
 
-        # figure = px.line(plot_df, x='date_time', y='cell_voltage')
-        # fig.add_scatter(x=plot_df['date_time'], y=plot_df['current'], mode='lines')
+        # figure = px.line(plot_df, x='time', y='voltage')
         # self.figures.append(
-        #    PlotlyFigure(
-        #        figure=px.line(
-        #            pd.DataFrame(
-        #                dict(
-        #                    date_time=self.date_time,
-        #                    current=self.current,
-        #                    cell_voltage=self.cell_voltage_total,
-        #                )
-        #            ),
-        #            x='current_density',
-        #           y='cell_voltage',
-        #        ).to_plotly_json()
-        #    )
-        # )
+        #     PlotlyFigure(figure).to_plotly_json())
 
 
 m_package.__init_metainfo__()
