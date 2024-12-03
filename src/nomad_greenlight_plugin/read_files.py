@@ -1,8 +1,9 @@
 import os
+from operator import itemgetter
+
 import numpy as np
 import pandas as pd
 from echem_data import electrochem_data as ed
-from operator import itemgetter
 
 
 def reset_dtype(data_frame: pd.DataFrame):
@@ -17,12 +18,15 @@ def reset_dtype(data_frame: pd.DataFrame):
 
 def read_single_file(file_path, first_file_mark=None):
     data_file_object = ed.EChemDataFile(file_path, 'Greenlight')
-    new_columns = {col: col.lower().replace(" ", "_").replace(".", "_")
-                   for col in data_file_object.data.columns}
+    new_columns = {
+        col: col.lower().replace(' ', '_').replace('.', '_')
+        for col in data_file_object.data.columns
+    }
     data_file_object.data.rename(columns=new_columns, inplace=True)
     data = reset_dtype(data_file_object.data).copy()
-    data_file_object.units = {new_columns[k]: v for k, v
-                              in data_file_object.units.items()}
+    data_file_object.units = {
+        new_columns[k]: v for k, v in data_file_object.units.items()
+    }
     if first_file_mark is not None:
         data.loc[0, 'file_mark'] = first_file_mark
     data['file_mark'] = data['file_mark'].ffill()
@@ -39,7 +43,8 @@ def read_multiple_files_and_combine(mainfile, root_name, split_char='_'):
     dir_path = os.path.dirname(mainfile)
     file_list = [file for file in os.listdir(dir_path) if root_name in file]
     sorted_file_list = sorted(
-        file_list, key=lambda x: itemgetter(-1)(x.split(split_char)))
+        file_list, key=lambda x: itemgetter(-1)(x.split(split_char))
+    )
     first_file_mark = None
     data_file_objects = []
     for file in sorted_file_list:
@@ -48,8 +53,7 @@ def read_multiple_files_and_combine(mainfile, root_name, split_char='_'):
         print(first_file_mark)
         data_file_object.data.set_index('time', inplace=True)
         data_file_objects.append(data_file_object)
-    data_frame = pd.concat(
-        [dfo.data for dfo in data_file_objects], join='outer')
+    data_frame = pd.concat([dfo.data for dfo in data_file_objects], join='outer')
     data_frame = data_frame.reset_index()
     data_file_object = data_file_objects[0]
     data_file_object.data = data_frame
@@ -68,7 +72,8 @@ def read_files(mainfile):
     if file_number is not None:
         # Load multiple files
         data_file_object = read_multiple_files_and_combine(
-            mainfile, root_name, split_char=split_char)
+            mainfile, root_name, split_char=split_char
+        )
     else:
         # Load stand-alone file
         data_file_object = read_single_file(mainfile)

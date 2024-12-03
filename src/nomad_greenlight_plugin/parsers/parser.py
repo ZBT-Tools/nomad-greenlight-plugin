@@ -12,11 +12,9 @@ if TYPE_CHECKING:
 
 # Import additional libraries
 from nomad.config import config
-from nomad.datamodel.metainfo.workflow import Workflow
 from nomad.parsing.parser import MatchingParser
 
 from nomad_greenlight_plugin import read_files as rf
-
 from nomad_greenlight_plugin.schema_packages.schema_package import (
     GreenlightSchemaPackage,
 )
@@ -35,8 +33,7 @@ class GreenlightParser(MatchingParser):
         child_archives: dict[str, 'EntryArchive'] = None,
     ) -> None:
         if logger is not None:
-            logger.info('GreenlightParser.parse',
-                        parameter=configuration.parameter)
+            logger.info('GreenlightParser.parse', parameter=configuration.parameter)
 
         # archive.workflow2 = Workflow(name='test')
         data_file_object = rf.read_files(mainfile)
@@ -50,9 +47,9 @@ class GreenlightParser(MatchingParser):
         for name in data.columns:
             if name in archive.data:
                 try:
-                    #print(archive.data, name, data[name].values[0])
+                    # print(archive.data, name, data[name].values[0])
                     setattr(archive.data, name, data[name])
-                    #print(id(getattr(archive.data, name)))
+                    # print(id(getattr(archive.data, name)))
                 except (ValueError, TypeError) as E:
                     print(name)
                     print(data[name])
